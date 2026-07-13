@@ -22,6 +22,10 @@ class AppRouter {
         path: Routes.search,
         builder: (context, state) => const SearchScreen(),
       ),
+      GoRoute(
+        path: Routes.search,
+        builder: (context, state) => const MainHome(),
+      ),
     ],
   );
 }

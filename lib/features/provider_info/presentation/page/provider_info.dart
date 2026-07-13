@@ -23,7 +23,7 @@ class _ProviderInfoState extends State<ProviderInfo> {
     'Wiring Repair',
     'Panel Upgrades',
     'Lighting Installation',
-    'EV Charging Ports',
+    'EV Charging Ports', 
   ];
 
 
