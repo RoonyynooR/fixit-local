@@ -15,16 +15,19 @@ class AppRouter {
     navigatorKey: navigatorKey,
     routes: [
       GoRoute(
-        path: '/',
+        path: Routes.providerInfo,
         builder: (context, state) => const ProviderInfo(),
       ),
       GoRoute(
-        path: Routes.search,
-        builder: (context, state) => const SearchScreen(),
+        path: Routes.splash,
+        builder: (context, state) => const MainHome(),
       ),
       GoRoute(
         path: Routes.search,
-        builder: (context, state) => const MainHome(),
+        builder: (context, state) {
+          final category = state.uri.queryParameters['category'];
+          return SearchScreen(initialCategory: category);
+        },
       ),
     ],
   );

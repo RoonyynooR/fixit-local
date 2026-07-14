@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:localservice/core/models/provider_model.dart';
 import 'package:localservice/core/styles/app_colors.dart';
 import 'package:localservice/core/styles/text_styles.dart';
 
 class ProfessionalCard extends StatelessWidget {
-  final String name;
-  final String? imageUrl;
-  final double rating;
-  final String specialty;
-  final double distance;
-  final double pricePerHour;
+  final ProviderModel providerModel;
   final VoidCallback? onTap;
 
   const ProfessionalCard({
     super.key,
-    required this.name,
-    this.imageUrl,
-    required this.rating,
-    required this.specialty,
-    required this.distance,
-    required this.pricePerHour,
+    required this.providerModel,
     this.onTap,
   });
 
@@ -53,18 +45,20 @@ class ProfessionalCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(28),
-                child: imageUrl != null && imageUrl!.startsWith('http')
-                    ? Image.network(
-                        imageUrl!,
+                child: providerModel.imageUrl != null && providerModel.imageUrl!.startsWith('http')
+                    ? CachedNetworkImage(
+                        imageUrl: providerModel.imageUrl!,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset(
+                        errorWidget: (context, url, error) => Image.asset(
                           'assets/images/user_placeholder.png',
                           fit: BoxFit.cover,
                         ),
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       )
                     : Image.asset(
-                        imageUrl ?? 'assets/images/user_placeholder.png',
+                        providerModel.imageUrl ?? 'assets/images/user_placeholder.png',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) =>
                             const Icon(Icons.person, size: 30),
@@ -84,7 +78,7 @@ class ProfessionalCard extends StatelessWidget {
                      
                       Expanded(
                         child: Text(
-                          name,
+                          providerModel.name,
                           style: TextStyles.title1.copyWith(
                             fontSize: 16,
                             height: 1.2,
@@ -114,7 +108,7 @@ class ProfessionalCard extends StatelessWidget {
                             ),
                             const Gap(4),
                             Text(
-                              rating.toStringAsFixed(1),
+                              providerModel.rating.toStringAsFixed(1),
                               style: TextStyles.caption1.copyWith(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -129,7 +123,7 @@ class ProfessionalCard extends StatelessWidget {
                   const Gap(4),
                   
                   Text(
-                    '$specialty • ${distance.toStringAsFixed(1)} miles away',
+                    '${providerModel.specialty} • ${providerModel.distance.toStringAsFixed(1)} miles away',
                     style: TextStyles.caption2.copyWith(
                       color: AppColors.bodycolor,
                       fontWeight: FontWeight.normal,
@@ -141,7 +135,7 @@ class ProfessionalCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Starts from \$${pricePerHour.toStringAsFixed(0)}/hr',
+                        'Starts from \$${providerModel.pricePerHour.toStringAsFixed(0)}/hr',
                         style: TextStyles.title2.copyWith(
                           color: AppColors.titlecolor,
                           fontWeight: FontWeight.w600,

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:localservice/core/styles/app_colors.dart';
 
 
@@ -61,7 +62,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                     : (widget.initialImagePath != null
                         ? DecorationImage(
                             image: widget.initialImagePath!.startsWith('http')
-                                ? NetworkImage(widget.initialImagePath!)
+                                ? CachedNetworkImageProvider(widget.initialImagePath!)
                                 : FileImage(File(widget.initialImagePath!)) as ImageProvider,
                             fit: BoxFit.cover,
                           )
