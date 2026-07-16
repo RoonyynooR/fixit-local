@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:go_router/go_router.dart';
 import 'package:localservice/core/routes/routes.dart';
 import 'package:localservice/features/provider_info/presentation/page/provider_info.dart';
 import 'package:localservice/features/search/presentation/page/search_screen.dart';
 import 'package:localservice/features/main_home/presentation/main_home.dart';
-
-
+import 'package:localservice/features/provider_dashboard/presentation/page/provider_dashboard_page.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -28,6 +26,10 @@ class AppRouter {
           final category = state.uri.queryParameters['category'];
           return SearchScreen(initialCategory: category);
         },
+      ),
+      GoRoute(
+        path: Routes.providerDashboard,
+        builder: (context, state) => const ProviderDashboardPage(),
       ),
     ],
   );

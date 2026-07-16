@@ -4,6 +4,8 @@ import 'package:localservice/core/styles/app_colors.dart';
 import 'package:localservice/core/styles/text_styles.dart';
 import 'package:localservice/core/widgets/svg_pic.dart';
 import 'package:localservice/features/home/presentation/page/home.dart';
+import 'package:localservice/features/provider_dashboard/presentation/page/provider_dashboard_page.dart';
+import 'package:localservice/features/payment/presentation/page/payment_page.dart';
 
 class MainHome extends StatefulWidget {
   const MainHome({super.key});
@@ -16,8 +18,8 @@ class _MainHomeState extends State<MainHome> {
   int _currentIndex = 0;
   final List<Widget> screens = [
     const Home(),
-    const Center(child: Text('Bookings')),
-    const Center(child: Text('Profile')),
+    const ProviderDashboardPage(),
+    const PaymentPage(),
   ];
 
   @override
