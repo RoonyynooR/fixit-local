@@ -18,21 +18,10 @@ import 'package:localservice/features/home/presentation/widgets/message.dart';
 import 'package:localservice/features/home/presentation/widgets/professional_card.dart';
 
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  late Future<List<ProviderModel>> _nearbyProvidersFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _nearbyProvidersFuture = AppFirebaseService.getNearbyProviders();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +69,7 @@ class _HomeState extends State<Home> {
       Text('Nearby Professionals', style: TextStyles.title1),
       const Gap(16),
       FutureBuilder<List<ProviderModel>>(
-        future: _nearbyProvidersFuture,
+        future: AppFirebaseService.getNearbyProviders(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const ListShimmer(itemCount: 3);

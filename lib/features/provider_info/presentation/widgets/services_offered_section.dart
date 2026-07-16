@@ -48,12 +48,12 @@ class _ServicesOfferedSectionState extends State<ServicesOfferedSection> {
   @override
   void initState() {
     super.initState();
-    _selected = List.from(widget.selectedServices);
+  _selected = widget.selectedServices;
   }
 
   void _removeService(String service) {
     setState(() => _selected.remove(service));
-    (_selected);
+    
   }
 
   void _showAddServiceSheet() {

@@ -106,7 +106,7 @@ class FilterPanel extends StatelessWidget {
         ),
         const Gap(12),
 
-        // Top Rated Toggle
+        
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -131,7 +131,7 @@ class FilterPanel extends StatelessWidget {
         ),
         const Gap(40),
 
-        // Apply Filters Button
+        
         SizedBox(
           width: double.infinity,
           height: 52,

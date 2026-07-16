@@ -31,7 +31,7 @@ class _PhotosOfWorkSectionState extends State<PhotosOfWorkSection> {
   @override
   void initState() {
     super.initState();
-    _photos = List.from(widget.photos);
+    _photos = widget.photos;
   }
 
   Future<void> _pickImage() async {

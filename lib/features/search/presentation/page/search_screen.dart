@@ -8,6 +8,7 @@ import 'package:localservice/core/styles/app_colors.dart';
 import 'package:localservice/core/styles/text_styles.dart';
 import 'package:localservice/core/widgets/mybodyview.dart';
 import 'package:localservice/features/home/presentation/widgets/professional_card.dart';
+import 'package:localservice/features/search/presentation/widgets/build_results.dart';
 import 'package:localservice/features/search/presentation/widgets/search_input_field.dart';
 import 'package:localservice/features/search/presentation/widgets/location_row.dart';
 import 'package:localservice/features/search/presentation/widgets/filter_panel.dart';
@@ -133,7 +134,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       duration: const Duration(milliseconds: 250),
                       child: _showFilters
                           ? FilterPanel(
-                              key: const ValueKey('filter_panel'),
+                             
                               quickFilters: _quickFilters,
                               selectedQuickFilter: _selectedQuickFilter,
                               onQuickFilterSelected: (val) {
@@ -159,10 +160,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 });
                               },
                             )
-                          : _buildResultsSection(
-                              filteredResults,
-                              hasActiveSearchOrFilters,
-                            ),
+                          : BuildResults(results: filteredResults, hasActiveFilters: hasActiveSearchOrFilters),
                     );
                   },
                 ),
@@ -171,44 +169,6 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildResultsSection(List<ProviderModel> results, bool hasActiveFilters) {
-    if (results.isEmpty) {
-      return Center(
-        child: Column(
-          key: const ValueKey('no_results'),
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.search_off, size: 64, color: AppColors.greycolor),
-            const Gap(16),
-            Text(
-              'No Professionals Found',
-              style: TextStyles.title1.copyWith(fontSize: 18),
-            ),
-            const Gap(8),
-            Text(
-              'Try adjusting your search query or filters.',
-              style: TextStyles.caption2.copyWith(color: AppColors.bodycolor),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return ListView.separated(
-      key: const ValueKey('results_list'),
-      padding: const EdgeInsets.only(bottom: 24),
-      itemCount: results.length,
-      separatorBuilder: (context, index) => const Gap(12),
-      itemBuilder: (context, index) {
-        final pro = results[index];
-        return ProfessionalCard(
-          providerModel: pro,
-          onTap: () {},
-        );
-      },
     );
   }
 }
