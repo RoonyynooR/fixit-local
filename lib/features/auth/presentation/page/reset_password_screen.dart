@@ -1,23 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:localservice/core/routes/routes.dart';
 import 'package:localservice/core/styles/app_colors.dart';
 import 'package:localservice/core/styles/text_styles.dart';
-
-import '../../../../core/styles/app_colors.dart';
-import '../../../../core/styles/text_styles.dart';
+import 'package:localservice/features/auth/presentation/widgets/auth_button.dart';
+import 'package:localservice/features/auth/presentation/widgets/password_field.dart';
+import 'package:localservice/features/auth/presentation/widgets/support_card.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+  State<ResetPasswordScreen> createState() =>
+      _ResetPasswordScreenState();
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final TextEditingController newPasswordController =
+      TextEditingController();
+
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
   bool hidePassword = true;
   bool hideConfirmPassword = true;
+
+  @override
+  void dispose() {
+    newPasswordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _resetPassword() {
+    final String newPassword = newPasswordController.text.trim();
+    final String confirmPassword =
+        confirmPasswordController.text.trim();
+
+    if (newPassword.isEmpty || confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please complete both password fields.'),
+        ),
+      );
+      return;
+    }
+
+    if (newPassword != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('The passwords do not match.'),
+        ),
+      );
+      return;
+    }
+
+    context.push(Routes.appointmentConfirmed);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +69,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           children: [
             _TopBar(
               title: 'FixIt Local',
-              onClose: () => Navigator.pop(context),
+              onClose: () {
+                context.pop();
+              },
             ),
 
             Expanded(
@@ -41,7 +84,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppColors.lightgrey),
+                        border: Border.all(
+                          color: AppColors.lightgrey,
+                        ),
                       ),
                       child: Column(
                         children: [
@@ -59,7 +104,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           const Gap(8),
 
                           Text(
-                            'Set a secure new password for your\naccount to regain access to home repair\nservices.',
+                            'Set a secure new password for your\n'
+                            'account to regain access to home repair\n'
+                            'services.',
                             textAlign: TextAlign.center,
                             style: TextStyles.body1.copyWith(
                               color: AppColors.bodycolor,
@@ -69,11 +116,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
                           const Gap(24),
 
-                          const _Label(text: 'New Password'),
+                          const _Label(
+                            text: 'New Password',
+                          ),
 
                           const Gap(8),
 
                           PasswordField(
+                            controller: newPasswordController,
                             obscureText: hidePassword,
                             onVisibilityTap: () {
                               setState(() {
@@ -98,15 +148,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
                           const Gap(18),
 
-                          const _Label(text: 'Confirm Password'),
+                          const _Label(
+                            text: 'Confirm Password',
+                          ),
 
                           const Gap(8),
 
                           PasswordField(
+                            controller: confirmPasswordController,
                             obscureText: hideConfirmPassword,
                             onVisibilityTap: () {
                               setState(() {
-                                hideConfirmPassword = !hideConfirmPassword;
+                                hideConfirmPassword =
+                                    !hideConfirmPassword;
                               });
                             },
                           ),
@@ -118,21 +172,30 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             decoration: BoxDecoration(
                               color: AppColors.lightgrey1,
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: AppColors.lightgrey),
+                              border: Border.all(
+                                color: AppColors.lightgrey,
+                              ),
                             ),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                               children: [
                                 const Icon(
                                   Icons.shield_outlined,
                                   color: AppColors.titlecolor,
                                   size: 22,
                                 ),
+
                                 const Gap(10),
+
                                 Expanded(
                                   child: Text(
-                                    'PASSWORD SECURITY TIP\nUse a mix of uppercase letters, numbers, and symbols to ensure your account remains secure.',
-                                    style: TextStyles.caption2.copyWith(
+                                    'PASSWORD SECURITY TIP\n'
+                                    'Use a mix of uppercase letters, '
+                                    'numbers, and symbols to ensure your '
+                                    'account remains secure.',
+                                    style:
+                                        TextStyles.caption2.copyWith(
                                       color: AppColors.bodycolor,
                                       height: 1.4,
                                       fontSize: 11,
@@ -148,11 +211,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           AuthButton(
                             title: 'Reset Password',
                             icon: Icons.lock_reset,
-                            backgroundColor: AppColors.secondaryColor,
+                            backgroundColor:
+                                AppColors.secondaryColor,
                             textColor: AppColors.bodycolor,
-                            onTap: () {
-                              context.push(Routes.appointmentConfirmed);
-                            },
+                            onTap: _resetPassword,
                           ),
                         ],
                       ),
@@ -168,7 +230,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             title: '24/7 Support',
                           ),
                         ),
+
                         Gap(12),
+
                         Expanded(
                           child: SupportCard(
                             icon: Icons.verified_user_outlined,
@@ -188,7 +252,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           color: AppColors.titlecolor,
                           size: 18,
                         ),
+
                         const Gap(4),
+
                         Text(
                           'Having trouble?',
                           style: TextStyles.caption2.copyWith(
@@ -196,7 +262,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             fontSize: 11,
                           ),
                         ),
+
                         const Gap(8),
+
                         Text(
                           'Contact Support',
                           style: TextStyles.caption1.copyWith(
@@ -231,11 +299,15 @@ class _TopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 58,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+      ),
       decoration: const BoxDecoration(
         color: AppColors.backgroundColor,
         border: Border(
-          bottom: BorderSide(color: AppColors.lightgrey),
+          bottom: BorderSide(
+            color: AppColors.lightgrey,
+          ),
         ),
       ),
       child: Row(
@@ -245,7 +317,9 @@ class _TopBar extends StatelessWidget {
             color: AppColors.titlecolor,
             size: 20,
           ),
+
           const Gap(6),
+
           Text(
             title,
             style: TextStyles.title1.copyWith(
@@ -253,10 +327,14 @@ class _TopBar extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
+
           const Spacer(),
+
           IconButton(
             onPressed: onClose,
-            icon: const Icon(Icons.close),
+            icon: const Icon(
+              Icons.close,
+            ),
             color: AppColors.blackColor,
           ),
         ],
@@ -280,7 +358,7 @@ class _Label extends StatelessWidget {
         text,
         style: TextStyles.caption1.copyWith(
           color: AppColors.blackColor,
-          fontWeight: fontWeight.w700,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );

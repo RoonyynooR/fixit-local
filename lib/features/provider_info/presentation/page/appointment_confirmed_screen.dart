@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:localservice/core/routes/routes.dart';
 import 'package:localservice/core/styles/app_colors.dart';
 import 'package:localservice/core/styles/text_styles.dart';
-
+import 'package:localservice/features/auth/presentation/widgets/auth_button.dart';
 
 import '../../../../core/shimmer/shimmer_widget.dart';
 import '../../../../core/styles/app_colors.dart';

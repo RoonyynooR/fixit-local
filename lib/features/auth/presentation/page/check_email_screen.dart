@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
+
 import 'package:localservice/core/routes/routes.dart';
 import 'package:localservice/core/styles/app_colors.dart';
 import 'package:localservice/core/styles/text_styles.dart';
-
-
-import '../../../../core/styles/app_colors.dart';
-import '../../../../core/styles/text_styles.dart';
+import 'package:localservice/features/auth/presentation/widgets/auth_button.dart';
 
 class CheckEmailScreen extends StatelessWidget {
   const CheckEmailScreen({super.key});
 
-  static const String checkEmailImage = 'assets/images/checkemail.png';
+  static const String checkEmailImage =
+      'assets/images/checkemail.png';
 
   @override
   Widget build(BuildContext context) {
-    final pinTheme = PinTheme(
+    final PinTheme pinTheme = PinTheme(
       width: 58,
       height: 64,
       textStyle: TextStyles.title.copyWith(
@@ -28,7 +27,9 @@ class CheckEmailScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.lightgrey),
+        border: Border.all(
+          color: AppColors.lightgrey,
+        ),
       ),
     );
 
@@ -36,7 +37,9 @@ class CheckEmailScreen extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor1,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+          ),
           child: Column(
             children: [
               const Gap(16),
@@ -51,8 +54,12 @@ class CheckEmailScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                    ),
                     color: AppColors.blackColor,
                     iconSize: 20,
                   ),
@@ -93,7 +100,8 @@ class CheckEmailScreen extends StatelessWidget {
               const Gap(8),
 
               Text(
-                'We sent a 4-digit verification code to\nj.doe@example.com',
+                'We sent a 4-digit verification code to\n'
+                'j.doe@example.com',
                 textAlign: TextAlign.center,
                 style: TextStyles.body1.copyWith(
                   color: AppColors.bodycolor,
@@ -120,9 +128,12 @@ class CheckEmailScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.titlecolor),
+                    border: Border.all(
+                      color: AppColors.titlecolor,
+                    ),
                   ),
                 ),
+                keyboardType: TextInputType.number,
               ),
 
               const Gap(24),
@@ -145,7 +156,9 @@ class CheckEmailScreen extends StatelessWidget {
                     color: AppColors.bodycolor,
                   ),
                   children: [
-                    const TextSpan(text: 'Resend code in '),
+                    const TextSpan(
+                      text: 'Resend code in ',
+                    ),
                     TextSpan(
                       text: '00:59',
                       style: TextStyles.caption1.copyWith(
@@ -160,14 +173,16 @@ class CheckEmailScreen extends StatelessWidget {
               const Gap(28),
 
               TextButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  context.pop();
+                },
                 child: Text(
                   'CHANGE EMAIL ADDRESS',
                   style: TextStyles.caption1.copyWith(
                     color: AppColors.bodycolor,
                     fontSize: 11,
                     letterSpacing: 1.4,
-                    fontWeight: fontWeight.w700,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),

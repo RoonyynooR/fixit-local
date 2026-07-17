@@ -7,4 +7,13 @@ class Routes {
   static const String search = '/search';
   static const String providerInfo = '/providerInfo';
   static const String providerDashboard = '/providerDashboard';
+
+
+  
+  static const String forgotPassword = '/forgot-password';
+  static const String checkEmail = '/check-email';
+  static const String resetPassword = '/reset-password';
+  static const String appointmentConfirmed = '/appointment-confirmed';
+
+  
 }
